@@ -1,10 +1,11 @@
 import React from "react";
 import { isNil, map } from "lodash";
 import { v4 as uuid } from "uuid";
-import { Paper, Typography } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import clsx from "clsx";
 
 import { useStyles } from "./style";
+import { Tile } from "src/components";
 import {
   getRandomGrid,
   isGridOrdered,
@@ -14,12 +15,14 @@ import {
 import { Grid, Position } from "src/lib/types";
 
 const gridSize = 3;
+const tileSize = 150;
 const initialGrid = getRandomGrid(gridSize);
 
 const Home: React.FC = () => {
-  const classes = useStyles({ gridSize });
+  const classes = useStyles({ gridSize, tileSize });
   const [grid, setGrid] = React.useState<Grid>(initialGrid);
   const isOrdered = React.useMemo(() => isGridOrdered(grid), [grid]);
+  const emptyPos = React.useMemo(() => findInGrid(grid, 0), [grid]);
 
   React.useEffect(() => {
     if (isOrdered) {
@@ -28,10 +31,9 @@ const Home: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOrdered]);
 
-  const updateGrid = (rowIndex: number, colIndex: number) => {
+  const updateGrid = (currentPos: Position) => {
+    const [rowIndex, colIndex] = currentPos;
     const cell = grid[rowIndex][colIndex];
-    const currentPos = [rowIndex, colIndex] as Position;
-    const emptyPos = findInGrid(grid, 0);
 
     if (isNil(emptyPos) || !switchablePositions(currentPos, emptyPos)) {
       return;
@@ -49,15 +51,17 @@ const Home: React.FC = () => {
         <div className={classes.grid}>
           {map(grid, (row, rowIndex) =>
             map(row, (cell, colIndex) => (
-              <div
+              <Tile
                 key={uuid()}
                 className={clsx(classes.cell, {
-                  [`${classes.cell}--empty`]: cell === 0
+                  [classes.emptyTile]: cell === 0
                 })}
-                onClick={() => updateGrid(rowIndex, colIndex)}
-              >
-                <Typography>{cell}</Typography>
-              </div>
+                content={cell}
+                size={tileSize}
+                currentPos={[rowIndex, colIndex]}
+                emptyPos={emptyPos}
+                onGridUpdate={updateGrid}
+              />
             ))
           )}
         </div>

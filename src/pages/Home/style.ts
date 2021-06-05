@@ -1,5 +1,10 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
+interface Props {
+  gridSize: number;
+  tileSize: number;
+}
+
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     width: "100%",
@@ -7,23 +12,23 @@ export const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     paddingTop: theme.spacing(4)
   },
-  grid: ({ gridSize }: { gridSize: number }) => ({
+  grid: ({ gridSize }: Props) => ({
     display: "grid",
     gridTemplateRows: `repeat(${gridSize}, ${100 / gridSize}%)`,
     gridTemplateColumns: `repeat(${gridSize}, ${100 / gridSize}%)`
   }),
   cell: {
-    width: 150,
-    height: 150,
+    width: ({ tileSize }: Props) => tileSize,
+    height: ({ tileSize }: Props) => tileSize,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     border: "1px solid #fff",
     "&:hover": {
       cursor: "pointer"
-    },
-    "&--empty": {
-      visibility: "hidden"
     }
+  },
+  emptyTile: {
+    visibility: "hidden"
   }
 }));
