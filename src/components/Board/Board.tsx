@@ -3,7 +3,6 @@ import { isNil, map } from "lodash";
 import { v4 as uuid } from "uuid";
 import { Paper } from "@material-ui/core";
 import clsx from "clsx";
-import { motion } from "framer-motion";
 
 import { useStyles } from "./style";
 import { Tile } from "src/components";
@@ -18,21 +17,15 @@ import { Grid, Position } from "src/lib/types";
 interface BoardProps {
   gridSize?: number;
   tileSize?: number;
-  shouldStartAgain?: boolean;
   updateGameStatus: ({ isOrdered }: { isOrdered: boolean }) => void;
 }
 
 const Board: React.FC<BoardProps> = (props) => {
-  const {
-    gridSize = 3,
-    tileSize = 150,
-    shouldStartAgain,
-    updateGameStatus
-  } = props;
-  const classes = useStyles({ gridSize, tileSize });
+  const { gridSize = 3, tileSize = 150, updateGameStatus } = props;
   const [grid, setGrid] = React.useState<Grid>(getSolvableGrid(gridSize));
   const isOrdered = React.useMemo(() => isGridOrdered(grid), [grid]);
   const emptyPos = React.useMemo(() => findInGrid(grid, 0), [grid]);
+  const classes = useStyles({ gridSize, tileSize });
 
   React.useEffect(() => {
     if (isOrdered) {
@@ -56,21 +49,21 @@ const Board: React.FC<BoardProps> = (props) => {
   };
 
   return (
-    <Paper square>
-      <motion.div
-        className={classes.grid}
-        animate={shouldStartAgain ? "close" : "open"}
-        variants={{ open: { opacity: 1 }, close: { opacity: 0 } }}
-      >
-        <div className={classes.innerGrid}>
-          {map(grid, (row) => map(row, () => <div key={uuid()} />))}
-        </div>
+    <Paper
+      square
+      className={clsx(classes.paper, { [classes.paperOrdered]: isOrdered })}
+    >
+      <div className={classes.grid}>
         {map(grid, (row, rowIndex) =>
           map(row, (cell, colIndex) => (
             <Tile
               key={uuid()}
               className={clsx(classes.cell, {
-                [classes.emptyTile]: cell === 0
+                [classes.emptyTile]: cell === 0,
+                [classes.switchable]: switchablePositions(
+                  [rowIndex, colIndex],
+                  emptyPos as Position
+                )
               })}
               content={cell}
               size={tileSize}
@@ -80,7 +73,7 @@ const Board: React.FC<BoardProps> = (props) => {
             />
           ))
         )}
-      </motion.div>
+      </div>
     </Paper>
   );
 };
