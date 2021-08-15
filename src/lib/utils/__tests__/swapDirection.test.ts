@@ -15,7 +15,7 @@ const cases: Case[] = [
   { currentPos: [2, 2], emptyPos: [3, 5], direction: null }
 ];
 
-it("should return the correct swipe direction", () => {
+it("should return the correct swap direction", () => {
   for (const { currentPos, emptyPos, direction } of cases) {
     expect(swapDirection(currentPos, emptyPos)).toEqual(direction);
   }

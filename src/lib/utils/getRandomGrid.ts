@@ -7,7 +7,7 @@ type GetRandomGrid = (size: number) => Grid;
 const getRandomGrid: GetRandomGrid = (size) =>
   reduce(
     shuffle(range(0, size * size)),
-    (grid, cell, index) => {
+    (grid, cell) => {
       if (grid[grid.length - 1].length === size) {
         return [...grid, [cell]];
       }

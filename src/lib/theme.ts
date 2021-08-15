@@ -8,15 +8,15 @@ const options: ThemeOptions = {
   palette: {
     type: "dark",
     primary: {
-      dark: "#ff4500",
-      main: "#ff5700",
-      contrastText: "#fff"
-    },
-    secondary: {
       dark: "#336699",
       main: "#5f99cf",
       light: "#cee3f8",
       contrastText: "#111"
+    },
+    secondary: {
+      dark: "#ff4500",
+      main: "#ff5700",
+      contrastText: "#fff"
     }
   },
   typography: {

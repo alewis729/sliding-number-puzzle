@@ -69,7 +69,7 @@ const cases: Case[] = [
   }
 ];
 
-it("should find position in grid", () => {
+it("should find the position of a cell in a grid", () => {
   for (const { grid, cell, position } of cases) {
     expect(findInGrid(grid, cell)).toEqual(position);
   }

@@ -44,13 +44,13 @@ const unorderedGrids: Grid[] = [
   ]
 ];
 
-it("should validate ordered grids", () => {
+it("should return true for ordered grids", () => {
   for (const grid of orderedGrids) {
     expect(isGridOrdered(grid)).toBe(true);
   }
 });
 
-it("should invalidate unordered grids", () => {
+it("should return false for unordered grids", () => {
   for (const grid of unorderedGrids) {
     expect(isGridOrdered(grid)).toBe(false);
   }

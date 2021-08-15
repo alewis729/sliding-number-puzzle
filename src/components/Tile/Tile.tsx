@@ -1,12 +1,12 @@
 import React from "react";
 import { isNil } from "lodash";
 import { Typography } from "@material-ui/core";
-import { motion, MotionProps, PanInfo } from "framer-motion";
+import { motion, PanInfo, useCycle } from "framer-motion";
 
 import { switchablePositions, swapDirection } from "src/lib/utils";
 import { Position, Direction } from "src/lib/types";
 
-interface Props {
+interface TileProps {
   className?: string;
   content?: number | React.ReactNode;
   size: number;
@@ -19,7 +19,7 @@ const defaultConstraints = { left: 0, right: 0, top: 0, bottom: 0 };
 const axisDistance = (direction: Direction, distance: number) =>
   distance * (["top", "left"].includes(direction as string) ? -1 : 1);
 
-const Tile: React.FC<Props> = ({
+const Tile: React.FC<TileProps> = ({
   className,
   content,
   size,
@@ -27,6 +27,7 @@ const Tile: React.FC<Props> = ({
   emptyPos,
   onGridUpdate
 }) => {
+  const [cycleValue, doCycle] = useCycle(0, -size, size);
   const direction = React.useMemo<Direction>(
     () => swapDirection(currentPos, emptyPos as Position) as Direction,
     [currentPos, emptyPos]
@@ -36,58 +37,40 @@ const Tile: React.FC<Props> = ({
     [direction]
   );
   const maxTranslate = axisDistance(direction, size);
-  const variants = {
-    start: { [axis]: 0 },
-    end: { [axis]: maxTranslate }
+  const drag = !isNil(emptyPos) && switchablePositions(currentPos, emptyPos);
+  const motionProps = {
+    animate: { [axis]: cycleValue },
+    transition: { type: "tween", ease: "easeInOut", duration: 0.075 },
+    drag,
+    dragDirectionLock: true,
+    dragElastic: false,
+    dragMomentum: false,
+    dragConstraints: isNil(direction)
+      ? defaultConstraints
+      : { ...defaultConstraints, [direction]: maxTranslate },
+    onDragEnd: (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+      const offset = ["top", "bottom"].includes(direction)
+        ? info.offset.y
+        : info.offset.x;
+      const traveledDistance = axisDistance(direction, offset);
+      const shouldUpdateTilePosition = traveledDistance / size >= 0.35;
+
+      if (shouldUpdateTilePosition) {
+        const nextCycleValueIndex = ["right", "bottom"].includes(direction)
+          ? 2
+          : 1;
+
+        doCycle(nextCycleValueIndex);
+        setTimeout(() => onGridUpdate(currentPos), 75);
+      } else {
+        doCycle();
+        doCycle(0);
+      }
+    }
   };
-  const [animationVariant, setAnimationVariant] = React.useState(
-    variants.start
-  );
-  const motionProps = React.useMemo<MotionProps>(() => {
-    const drag = !isNil(emptyPos) && switchablePositions(currentPos, emptyPos);
-
-    return !drag
-      ? {}
-      : {
-          // animate: animationVariant,
-          // style: {[axis]: translate},
-          // transition: { type: "tween", ease: "easeInOut", duration: 0.25 },
-          drag,
-          dragDirectionLock: true,
-          // dragElastic: false,
-          // dragMomentum: false,
-          dragConstraints: isNil(direction)
-            ? defaultConstraints
-            : { ...defaultConstraints, [direction]: maxTranslate },
-          onDragEnd: (
-            _: MouseEvent | TouchEvent | PointerEvent,
-            info: PanInfo
-          ) => {
-            const offsetX = axisDistance(direction, info.offset.x);
-            const offsetY = axisDistance(direction, info.offset.y);
-            const offset = ["top", "bottom"].includes(direction)
-              ? offsetY
-              : offsetX;
-            // console.log({ direction, offset, info, offsetX, offsetY });
-
-            if (offset / size >= 0.45) {
-              setAnimationVariant(variants.end);
-              console.log("translate: 100%");
-            } else {
-              setAnimationVariant(variants.start);
-              console.log("translate: 0");
-            }
-
-            // setTimeout(() => {
-            onGridUpdate(currentPos);
-            // }, 100);
-          }
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPos, emptyPos, animationVariant, direction]);
 
   return (
-    <motion.div className={className} {...motionProps}>
+    <motion.div className={className} {...(drag && motionProps)}>
       <Typography>{content}</Typography>
     </motion.div>
   );
