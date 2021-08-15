@@ -2,11 +2,16 @@ import { shuffle, range, reduce } from "lodash";
 
 import { Grid } from "src/lib/types";
 
-type GetRandomGrid = (size: number) => Grid;
+export type GetGrid = (size: number, solved?: boolean) => Grid;
 
-const getRandomGrid: GetRandomGrid = (size) =>
-  reduce(
-    shuffle(range(0, size * size)),
+const getGrid: GetGrid = (size, solved = false) => {
+  const lastNum = size * size;
+  const numbers = solved
+    ? [...range(1, lastNum), 0]
+    : shuffle(range(0, lastNum));
+
+  return reduce(
+    numbers,
     (grid, cell) => {
       if (grid[grid.length - 1].length === size) {
         return [...grid, [cell]];
@@ -19,5 +24,6 @@ const getRandomGrid: GetRandomGrid = (size) =>
     },
     [[]] as Grid
   );
+};
 
-export default getRandomGrid;
+export default getGrid;

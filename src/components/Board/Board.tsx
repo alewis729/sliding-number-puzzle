@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useStyles } from "./style";
 import { Tile } from "src/components";
 import {
-  getRandomGrid,
+  getSolvableGrid,
   isGridOrdered,
   findInGrid,
   switchablePositions
@@ -30,7 +30,7 @@ const Board: React.FC<BoardProps> = (props) => {
     updateGameStatus
   } = props;
   const classes = useStyles({ gridSize, tileSize });
-  const [grid, setGrid] = React.useState<Grid>(getRandomGrid(gridSize));
+  const [grid, setGrid] = React.useState<Grid>(getSolvableGrid(gridSize));
   const isOrdered = React.useMemo(() => isGridOrdered(grid), [grid]);
   const emptyPos = React.useMemo(() => findInGrid(grid, 0), [grid]);
 
