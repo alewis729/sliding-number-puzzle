@@ -1,4 +1,4 @@
-import { Position, Direction } from "src/lib/types";
+import { Position, Direction } from 'src/lib/types';
 
 type SwapDirection = Direction | null;
 type GetSwapDirection = (
@@ -8,10 +8,10 @@ type GetSwapDirection = (
 
 const swapDirection: GetSwapDirection = (currentPos, emptyPos) => {
   const validPositions = [
-    { pos: [emptyPos[0] - 1, emptyPos[1]], direction: "bottom" },
-    { pos: [emptyPos[0] + 1, emptyPos[1]], direction: "top" },
-    { pos: [emptyPos[0], emptyPos[1] - 1], direction: "right" },
-    { pos: [emptyPos[0], emptyPos[1] + 1], direction: "left" }
+    { pos: [emptyPos[0] - 1, emptyPos[1]], direction: 'bottom' },
+    { pos: [emptyPos[0] + 1, emptyPos[1]], direction: 'top' },
+    { pos: [emptyPos[0], emptyPos[1] - 1], direction: 'right' },
+    { pos: [emptyPos[0], emptyPos[1] + 1], direction: 'left' }
   ];
 
   for (let i = 0; i < validPositions.length; i++) {

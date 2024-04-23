@@ -1,5 +1,5 @@
-import { findInGrid } from "src/lib/utils";
-import { Grid, Position } from "src/lib/types";
+import { findInGrid } from 'src/lib/utils';
+import { Grid, Position } from 'src/lib/types';
 
 type Case = {
   grid: Grid;
@@ -69,7 +69,7 @@ const cases: Case[] = [
   }
 ];
 
-it("should find the position of a cell in a grid", () => {
+it('should find the position of a cell in a grid', () => {
   for (const { grid, cell, position } of cases) {
     expect(findInGrid(grid, cell)).toEqual(position);
   }

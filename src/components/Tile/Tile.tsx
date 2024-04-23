@@ -1,10 +1,10 @@
-import React from "react";
-import { isNil } from "lodash";
-import { Typography } from "@material-ui/core";
-import { motion, PanInfo, useCycle } from "framer-motion";
+import React from 'react';
+import { isNil } from 'lodash';
+import { Typography } from '@material-ui/core';
+import { motion, PanInfo, useCycle } from 'framer-motion';
 
-import { switchablePositions, swapDirection } from "src/lib/utils";
-import { Position, Direction } from "src/lib/types";
+import { switchablePositions, swapDirection } from 'src/lib/utils';
+import { Position, Direction } from 'src/lib/types';
 
 interface TileProps {
   className?: string;
@@ -17,7 +17,7 @@ interface TileProps {
 
 const defaultConstraints = { left: 0, right: 0, top: 0, bottom: 0 };
 const axisDistance = (direction: Direction, distance: number) =>
-  distance * (["top", "left"].includes(direction as string) ? -1 : 1);
+  distance * (['top', 'left'].includes(direction as string) ? -1 : 1);
 
 const Tile: React.FC<TileProps> = ({
   className,
@@ -33,14 +33,14 @@ const Tile: React.FC<TileProps> = ({
     [currentPos, emptyPos]
   );
   const axis = React.useMemo(
-    () => (["left", "right"].includes(direction) ? "x" : "y"),
+    () => (['left', 'right'].includes(direction) ? 'x' : 'y'),
     [direction]
   );
   const maxTranslate = axisDistance(direction, size);
   const drag = !isNil(emptyPos) && switchablePositions(currentPos, emptyPos);
   const motionProps = {
     animate: { [axis]: cycleValue },
-    transition: { type: "tween", ease: "easeInOut", duration: 0.075 },
+    transition: { type: 'tween', ease: 'easeInOut', duration: 0.075 },
     drag,
     dragDirectionLock: true,
     dragElastic: false,
@@ -49,14 +49,14 @@ const Tile: React.FC<TileProps> = ({
       ? defaultConstraints
       : { ...defaultConstraints, [direction]: maxTranslate },
     onDragEnd: (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      const offset = ["top", "bottom"].includes(direction)
+      const offset = ['top', 'bottom'].includes(direction)
         ? info.offset.y
         : info.offset.x;
       const traveledDistance = axisDistance(direction, offset);
       const shouldUpdateTilePosition = traveledDistance / size >= 0.35;
 
       if (shouldUpdateTilePosition) {
-        const nextCycleValueIndex = ["right", "bottom"].includes(direction)
+        const nextCycleValueIndex = ['right', 'bottom'].includes(direction)
           ? 2
           : 1;
 

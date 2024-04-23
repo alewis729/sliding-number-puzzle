@@ -1,7 +1,7 @@
-import { flattenDeep, map, reduce } from "lodash";
+import { flattenDeep, map, reduce } from 'lodash';
 
-import { findInGrid, getGrid } from "src/lib/utils";
-import { Grid, Position } from "src/lib/types";
+import { findInGrid, getGrid } from 'src/lib/utils';
+import { Grid, Position } from 'src/lib/types';
 
 type IsSolvable = (grid: Grid) => boolean;
 

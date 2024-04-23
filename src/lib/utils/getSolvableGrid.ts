@@ -1,5 +1,5 @@
-import { getGrid, isSolvable, isGridOrdered } from "src/lib/utils";
-import { GetGrid } from "src/lib/utils/getGrid";
+import { getGrid, isSolvable, isGridOrdered } from 'src/lib/utils';
+import { GetGrid } from 'src/lib/utils/getGrid';
 
 const getSolvableGrid: GetGrid = (size, solved) => {
   let grid = getGrid(size, solved);

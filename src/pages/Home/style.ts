@@ -1,21 +1,21 @@
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: theme.spacing(4),
-    height: "100vh",
+    height: '100vh',
     background: theme.palette.secondary.dark,
-    transition: "all .35s ease"
+    transition: 'all .35s ease'
   },
   greenBg: {
     backgroundColor: theme.palette.success.dark
   },
   settings: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: theme.spacing(8),
-    "& > *:not(:last-child)": {
+    '& > *:not(:last-child)': {
       marginRight: theme.spacing(2)
     }
   },
@@ -23,9 +23,9 @@ export const useStyles = makeStyles((theme: Theme) => ({
     minWidth: 120
   },
   mainContent: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
     marginTop: theme.spacing(4)
   }
 }));

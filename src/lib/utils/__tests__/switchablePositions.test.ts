@@ -1,5 +1,5 @@
-import { switchablePositions } from "src/lib/utils";
-import { Position } from "src/lib/types";
+import { switchablePositions } from 'src/lib/utils';
+import { Position } from 'src/lib/types';
 
 type Case = {
   currentPos: Position;
@@ -20,13 +20,13 @@ const invalidCases: Case[] = [
   { currentPos: [4, 0], emptyPos: [2, 4] }
 ];
 
-it("should return true for positions that are switchable", () => {
+it('should return true for positions that are switchable', () => {
   for (const { currentPos, emptyPos } of validCases) {
     expect(switchablePositions(currentPos, emptyPos)).toBe(true);
   }
 });
 
-it("should return false for positions that are not switchable", () => {
+it('should return false for positions that are not switchable', () => {
   for (const { currentPos, emptyPos } of invalidCases) {
     expect(switchablePositions(currentPos, emptyPos)).toBe(false);
   }

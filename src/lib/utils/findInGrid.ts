@@ -1,4 +1,4 @@
-import { Grid, Position } from "src/lib/types";
+import { Grid, Position } from 'src/lib/types';
 
 type FindInGrid = (grid: Grid, cell: number) => Position | null;
 

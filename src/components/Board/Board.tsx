@@ -1,18 +1,18 @@
-import React from "react";
-import { isNil, map } from "lodash";
-import { v4 as uuid } from "uuid";
-import { Paper } from "@material-ui/core";
-import clsx from "clsx";
+import React from 'react';
+import { isNil, map } from 'lodash';
+import { v4 as uuid } from 'uuid';
+import { Paper } from '@material-ui/core';
+import clsx from 'clsx';
 
-import { useStyles } from "./style";
-import { Tile } from "src/components";
+import { useStyles } from './style';
+import { Tile } from 'src/components';
 import {
   getSolvableGrid,
   isGridOrdered,
   findInGrid,
   switchablePositions
-} from "src/lib/utils";
-import { Grid, Position } from "src/lib/types";
+} from 'src/lib/utils';
+import { Grid, Position } from 'src/lib/types';
 
 interface BoardProps {
   gridSize?: number;

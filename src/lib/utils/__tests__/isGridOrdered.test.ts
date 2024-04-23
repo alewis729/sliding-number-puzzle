@@ -1,5 +1,5 @@
-import { isGridOrdered } from "src/lib/utils";
-import { Grid } from "src/lib/types";
+import { isGridOrdered } from 'src/lib/utils';
+import { Grid } from 'src/lib/types';
 
 const orderedGrids: Grid[] = [
   [
@@ -44,13 +44,13 @@ const unorderedGrids: Grid[] = [
   ]
 ];
 
-it("should return true for ordered grids", () => {
+it('should return true for ordered grids', () => {
   for (const grid of orderedGrids) {
     expect(isGridOrdered(grid)).toBe(true);
   }
 });
 
-it("should return false for unordered grids", () => {
+it('should return false for unordered grids', () => {
   for (const grid of unorderedGrids) {
     expect(isGridOrdered(grid)).toBe(false);
   }

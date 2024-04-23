@@ -1,4 +1,4 @@
-import { Position } from "src/lib/types";
+import { Position } from 'src/lib/types';
 
 type SwitchablePositions = (
   currentPos: Position,

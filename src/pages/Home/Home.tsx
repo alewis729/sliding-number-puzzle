@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   Button,
   Select,
   MenuItem,
   FormControl,
   InputLabel
-} from "@material-ui/core";
-import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
-import Confetti from "react-confetti";
-import { map } from "lodash";
+} from '@material-ui/core';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import Confetti from 'react-confetti';
+import { map } from 'lodash';
 
-import { useStyles } from "./style";
-import { Board } from "src/components";
-import { useWindowDimensions } from "src/hooks";
+import { useStyles } from './style';
+import { Board } from 'src/components';
+import { useWindowDimensions } from 'src/hooks';
 
 const DEFAULT_GRID_SIZE = 3;
 const DEFAULT_TILE_SIZE = 175;

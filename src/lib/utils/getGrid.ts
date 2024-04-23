@@ -1,6 +1,6 @@
-import { shuffle, range, reduce } from "lodash";
+import { shuffle, range, reduce } from 'lodash';
 
-import { Grid } from "src/lib/types";
+import { Grid } from 'src/lib/types';
 
 export type GetGrid = (size: number, solved?: boolean) => Grid;
 

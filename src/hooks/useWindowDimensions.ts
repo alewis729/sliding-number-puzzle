@@ -1,5 +1,5 @@
-import React from "react";
-import debounce from "lodash/debounce";
+import React from 'react';
+import debounce from 'lodash/debounce';
 
 const useWindowDimensions = (delay = 700) => {
   const [dimensions, setDimensions] = React.useState({
@@ -12,9 +12,9 @@ const useWindowDimensions = (delay = 700) => {
       setDimensions({ width: window.innerWidth, height: window.innerHeight });
     const debouncedHandleResize = debounce(handleResize, delay);
 
-    window.addEventListener("resize", debouncedHandleResize);
+    window.addEventListener('resize', debouncedHandleResize);
     return () => {
-      window.removeEventListener("resize", debouncedHandleResize);
+      window.removeEventListener('resize', debouncedHandleResize);
     };
   }, [delay]);
 

@@ -1,5 +1,5 @@
-import { isSolvable } from "src/lib/utils";
-import { Grid } from "src/lib/types";
+import { isSolvable } from 'src/lib/utils';
+import { Grid } from 'src/lib/types';
 
 const solvableGrids: Grid[] = [
   [
@@ -81,13 +81,13 @@ const unsolvableGrids: Grid[] = [
   ]
 ];
 
-it("should return true for solvable grids", () => {
+it('should return true for solvable grids', () => {
   for (const grid of solvableGrids) {
     expect(isSolvable(grid)).toBe(true);
   }
 });
 
-it("should return false for unsolvable grids", () => {
+it('should return false for unsolvable grids', () => {
   for (const grid of unsolvableGrids) {
     expect(isSolvable(grid)).toBe(false);
   }

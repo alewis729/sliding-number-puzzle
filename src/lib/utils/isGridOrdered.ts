@@ -1,6 +1,6 @@
-import { range } from "lodash";
+import { range } from 'lodash';
 
-import { Grid } from "src/lib/types";
+import { Grid } from 'src/lib/types';
 
 const isGridOrdered = (grid: Grid) => {
   const size = grid.length;
