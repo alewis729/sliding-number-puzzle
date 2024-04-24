@@ -3,8 +3,10 @@ import { isNil } from 'lodash';
 import { Typography } from '@material-ui/core';
 import { motion, PanInfo, useCycle } from 'framer-motion';
 
+import { useStyles } from './style';
 import { switchablePositions, swapDirection } from 'src/lib/utils';
 import { Position, Direction } from 'src/lib/types';
+import clsx from 'clsx';
 
 interface TileProps {
   className?: string;
@@ -27,6 +29,7 @@ const Tile: React.FC<TileProps> = ({
   emptyPos,
   onGridUpdate
 }) => {
+  const classes = useStyles();
   const [cycleValue, doCycle] = useCycle(0, -size, size);
   const direction = React.useMemo<Direction>(
     () => swapDirection(currentPos, emptyPos as Position) as Direction,
@@ -70,8 +73,16 @@ const Tile: React.FC<TileProps> = ({
   };
 
   return (
-    <motion.div className={className} {...(drag && motionProps)}>
+    <motion.div
+      className={clsx(className, classes.tile)}
+      {...(drag && motionProps)}
+    >
       <Typography>{content}</Typography>
+      <img
+        src="/assets/wood-frame-min.png"
+        alt="wood"
+        className={classes.image}
+      />
     </motion.div>
   );
 };

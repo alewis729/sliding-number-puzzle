@@ -3,7 +3,8 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: theme.spacing(4),
-    height: '100vh',
+    paddingBottom: theme.spacing(4),
+    minHeight: '100vh',
     background: theme.palette.secondary.dark,
     transition: 'all .35s ease'
   },

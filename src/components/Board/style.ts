@@ -12,17 +12,30 @@ const getGridStyles = (gridSize: number) => ({
   transition: 'all .25s ease'
 });
 
+const getTileFontSize = (gridSize: number) => {
+  if (gridSize === 3) return 70;
+  else if (gridSize === 4) return 62;
+  else if (gridSize === 5) return 56;
+  else if (gridSize === 6) return 42;
+  return 36;
+};
+
 export const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    backgroundColor: theme.palette.secondary.main,
+    transition: 'all .25s ease',
+    borderRadius: 15,
+    overflow: 'hidden'
+  },
   grid: ({ gridSize, tileSize }: Props) => ({
     position: 'relative',
     width: gridSize * tileSize,
     height: gridSize * tileSize,
-    ...getGridStyles(gridSize)
+    ...getGridStyles(gridSize),
+    '& p': {
+      fontSize: getTileFontSize(gridSize)
+    }
   }),
-  paper: {
-    backgroundColor: theme.palette.secondary.main,
-    transition: 'all .25s ease'
-  },
   paperOrdered: {
     opacity: 0.65,
     pointerEvents: 'none'
