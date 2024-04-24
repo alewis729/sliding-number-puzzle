@@ -9,7 +9,7 @@ const getGridStyles = (gridSize: number) => ({
   display: 'grid',
   gridTemplateRows: `repeat(${gridSize}, ${100 / gridSize}%)`,
   gridTemplateColumns: `repeat(${gridSize}, ${100 / gridSize}%)`,
-  transition: 'all .25s ease'
+  transition: 'all 250ms ease'
 });
 
 const getTileFontSize = (gridSize: number) => {
@@ -23,6 +23,7 @@ const getTileFontSize = (gridSize: number) => {
 export const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     backgroundColor: theme.palette.secondary.main,
+    border: `5px solid ${theme.palette.secondary.main}`,
     transition: 'all .25s ease',
     borderRadius: 15,
     overflow: 'hidden'
@@ -34,6 +35,11 @@ export const useStyles = makeStyles((theme: Theme) => ({
     ...getGridStyles(gridSize),
     '& p': {
       fontSize: getTileFontSize(gridSize)
+    },
+    '@media (max-width: 768px)': {
+      '& p': {
+        fontSize: getTileFontSize(gridSize) * 0.65
+      }
     }
   }),
   paperOrdered: {

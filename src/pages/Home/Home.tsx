@@ -4,7 +4,8 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  IconButton
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -14,6 +15,7 @@ import { map } from 'lodash';
 import { useStyles } from './style';
 import { Board } from 'src/components';
 import { useWindowDimensions } from 'src/hooks';
+import { GitHub } from '@material-ui/icons';
 
 const DEFAULT_GRID_SIZE = 3;
 const DEFAULT_TILE_SIZE = 175;
@@ -29,16 +31,14 @@ const Home: React.FC = () => {
     React.useState<boolean>(false);
 
   React.useEffect(() => {
-    const gridLength = gridSize * tileSize;
+    const gridLength = gridSize * DEFAULT_TILE_SIZE;
     const maxWidth = windowDimensions.width - 40;
     const newTileSize = maxWidth / gridSize;
 
-    if (maxWidth < gridLength || maxWidth / 2.5 > gridLength) {
-      if (newTileSize < DEFAULT_TILE_SIZE) {
-        setTileSize(newTileSize);
-      } else {
-        setTileSize(DEFAULT_TILE_SIZE);
-      }
+    if (gridLength > maxWidth || gridLength * 2.5 < maxWidth) {
+      setTileSize(
+        newTileSize < DEFAULT_TILE_SIZE ? newTileSize : DEFAULT_TILE_SIZE
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowDimensions, gridSize]);
@@ -68,6 +68,13 @@ const Home: React.FC = () => {
         />
       )}
       <div className={classes.settings}>
+        <IconButton
+          aria-label="Project"
+          href="https://github.com/alewis729/sliding-number-puzzle"
+          target="_blank"
+        >
+          <GitHub />
+        </IconButton>
         <FormControl variant="outlined" className={classes.selectContainer}>
           <InputLabel id="grid-size-select">Grid size</InputLabel>
           <Select
