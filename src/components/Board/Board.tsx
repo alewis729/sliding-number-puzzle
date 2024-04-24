@@ -67,8 +67,8 @@ const Board: React.FC<BoardProps> = (props) => {
               })}
               content={cell}
               size={tileSize}
-              currentPos={[rowIndex, colIndex]}
               emptyPos={emptyPos}
+              currentPos={[rowIndex, colIndex]}
               onGridUpdate={handleGridUpdate}
             />
           ))
