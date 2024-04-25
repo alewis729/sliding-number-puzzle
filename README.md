@@ -3,7 +3,8 @@
   <br>
 </h1>
 
-<h4 align="center">(aka [15 Puzzle](https://en.wikipedia.org/wiki/15_Puzzle)) One of the simplest games that exist.</h4>
+<h2 align="center">Play: https://puzzle-alewis.vercel.app/</h2>
+<h4 align="center">(aka 15 Puzzle) One of the simplest games that exist.</h4>
 
 <p align="center">
   <img width="1133" alt="image" src="https://github.com/alewis729/sliding-number-puzzle/assets/51219653/d39432e8-ada3-45f0-ac58-5e483902cbfc">
